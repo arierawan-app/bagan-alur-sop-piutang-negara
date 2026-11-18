@@ -8,15 +8,17 @@ sumber** pada folder `PERATURAN` (KPKNL Kupang), tanpa sumber eksternal.
 
 ## Isi halaman
 
-1. **Bagan alur Mermaid — alur kronologis ringkas** (35 simpul): satu alur utama dengan 6 titik keputusan — hasil penelitian kasus (SP3N/kelengkapan/penolakan), PU hadir & sepakat, wanprestasi PB, lunasi 1×24 jam, syarat Paksa Badan, dan hasil lelang. Simpul memuat **No. SOP + SLA**; dokumen kunci mengalir sebagai label garis; aktor penting tercantum inline (Kepala KPKNL, Ketua PUPN Pusat/Cabang, Menteri, Juru Sita, Kepala Kejaksaan Tinggi, Lapas/Rutan).
-   - Empat tahap: T1 Penerimaan & Penanganan Barjam · T2 Pemanggilan & Produk Hukum Awal · T3 Pemeriksaan, Paksa & Sita · T4 Keringanan, Penebusan & Penyelesaian Akhir.
-   - **Arsip versi rinci per aktor** (swimlane, 95 simpul): [`bagan_sop_piutang_negara.mmd`](bagan_sop_piutang_negara.mmd) — sumber bagan utama ringkas: [`bagan_alur.mmd`](bagan_alur.mmd).
+1. **Alur Prosedur Interaktif (HTML dinamis — tanpa bagan)** — 73 kartu SOP yang dapat dicari & dibuka/tutup, terbagi 4 tahap + Status Akhir:
+   - Tiap kartu SOP memuat: **persyaratan (dokumen masukan)** verbatim, **referensi peraturan** (pasal PP/PMK/KMK), **keluaran (produk/dokumen)**, **jangka waktu penyelesaian** ditulis penuh (mis. "paling lama enam (6) hari kerja" — tanpa singkatan), **dasar hukum** (bagian 2 SOP), dan **pihak yang terlibat**.
+   - 6 **kartu keputusan** (hasil penelitian, hadir & sepakat, wanprestasi PB, lunas 1×24 jam, syarat Paksa Badan, hasil lelang) dengan tautan lompat langsung ke SOP tujuan.
+   - Fitur: tab per tahap, pencarian langsung lintas tahap (nomor SOP / dokumen / kata kunci), buka-tutup semua, pita alur utama yang dapat diklik.
+   - **Arsip versi bagan (Mermaid)**: [`bagan_alur.mmd`](bagan_alur.mmd) (alur kronologis ringkas) dan [`bagan_sop_piutang_negara.mmd`](bagan_sop_piutang_negara.mmd) (rinci per aktor/swimlane).
 2. **Ketentuan khusus** — definisi 1 hari kerja, simbol penundaan (delay)/proses lain, kewenangan Plt./Plh. (Catatan Lainnya tiap SOP).
 3. **Kondisi terkini 2026** — ringkasan PMK 23/2026, PP 4/2026, KMK 144/2026.
 4. **Temuan validasi** — koreksi atas klaim prompt, divalidasi independen oleh 2 subagent terhadap PDF asli.
 5. **Tabel traceability** — setiap klaim simpul → halaman KEP-516/KN/2021 dan pasal PP/PMK/KMK.
 
-## Konvensi simbol (BPMN DJKN)
+## Konvensi simbol (berlaku untuk arsip bagan Mermaid — BPMN DJKN)
 
 | Simbol | Arti |
 |---|---|
