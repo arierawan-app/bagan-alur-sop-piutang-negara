@@ -4,7 +4,7 @@ Halaman interaktif berisi **satu bagan alur (flowchart) end-to-end** Standar Ope
 Prosedur Pengurusan Piutang Negara oleh PUPN pada KPKNL — disusun **100% dari dokumen
 sumber** pada folder `PERATURAN` (KPKNL Kupang), tanpa sumber eksternal.
 
-> 🌐 **Halaman utama (GitHub Pages):** _link ditambahkan setelah Pages aktif_
+> 🌐 **Halaman utama (GitHub Pages):** https://arierawan-app.github.io/bagan-alur-sop-piutang-negara/
 
 ## Isi halaman
 
