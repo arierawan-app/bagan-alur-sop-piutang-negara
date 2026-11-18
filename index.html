@@ -93,8 +93,8 @@ footer{max-width:1180px;margin:0 auto;padding:26px 20px 50px;color:#7b8a80;font-
 <main>
 
 <section class="card" id="diagram">
-  <h2><span class="no">01</span>Bagan Alur (Mermaid &mdash; swimlane per aktor)</h2>
-  <p class="lead">Satu diagram end-to-end Tahap 1&ndash;4. Geser/zoom dengan tombol di kanan atas kanvas. Garis tegas = alur proses internal; garis putus-putus = aliran dokumen antar pihak; <b>{X}</b> = percabangan keputusan; <b>&#9208;</b> = simpul penundaan/proses lain.</p>
+  <h2><span class="no">01</span>Bagan Alur (Mermaid &mdash; alur kronologis ringkas)</h2>
+  <p class="lead">Satu diagram kronologis end-to-end Tahap 1&ndash;4 yang dirancang ringkas: simpul memuat <b>No. SOP + SLA</b>, dokumen kunci mengalir sebagai label garis, dan SOP sejenis digabung dalam satu simpul. Garis tegas = alur proses; garis putus-putus = dokumen / pihak eksternal; <b>{X}</b> = keputusan; <b>&#9208;</b> = norma waktu dikecualikan. <b>Versi rinci per aktor</b> (swimlane, 95 simpul) diarsipkan pada berkas <code>bagan_sop_piutang_negara.mmd</code> di repositori &mdash; seluruh SLA &amp; kutipan juga tersedia di tabel traceability berikut.</p>
   <div class="legendbox">
     <span class="lg"><span class="dotT" style="background:#E7F1FB;border:1.5px solid var(--t1)"></span>Tahap 1 &mdash; Penerimaan &amp; Penanganan Barjam</span>
     <span class="lg"><span class="dotT" style="background:#FFF3D6;border:1.5px solid var(--t2)"></span>Tahap 2 &mdash; Pemanggilan &amp; Produk Hukum Awal</span>
@@ -205,332 +205,118 @@ footer{max-width:1180px;margin:0 auto;padding:26px 20px 50px;color:#7b8a80;font-
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 <script type="text/plain" id="mermaid-src">
 flowchart TD
-
     %% ================================================================
-    %% BAGAN ALUR END-TO-END SOP PENGURUSAN PIUTANG NEGARA OLEH PUPN
-    %% Sumber: dokumen pada folder PERATURAN (KPKNL Kupang)
-    %%   - KEP-516/KN/2021 (Perubahan IV SOP KPKNL): SOP 1-99-KPKNL-PN
-    %%   - PMK 240/PMK.06/2016 jo. PMK 23/PMK.06/2026
-    %%   - PP 28/2022 jo. PP 4/2026
-    %%   - PMK 102/PMK.06/2017; KMK 724/2017 jo. KMK 182/2022 jo. KMK 144/2026
-    %% Konvensi: garis tegas = alur proses internal;
-    %%           garis putus-putus = aliran dokumen/interaksi antar pihak;
-    %%           {X} = percabangan keputusan; ⏸ = simpul penundaan/proses lain
+    %% BAGAN ALUR SEDERHANA — SOP PENGURUSAN PIUTANG NEGARA OLEH PUPN
+    %% Alur kronologis T1-T4 tanpa swimlane (versi ringkas utama).
+    %% Arsip versi rinci per aktor (swimlane, 95 simpul):
+    %%   bagan_sop_piutang_negara.mmd  + tabel traceability pada halaman.
+    %% Konvensi: garis tegas = alur proses; garis putus-putus = dokumen /
+    %% interaksi pihak eksternal; {X} = keputusan; ⏸ = norma waktu dikecualikan;
+    %% hk = hari kerja. Semua isi dari dokumen sumber folder PERATURAN.
     %% ================================================================
 
-    %% ---------------- KETENTUAN KHUSUS ----------------
-    subgraph LANE_CAT["📋 KETENTUAN KHUSUS (Catatan Lainnya tiap SOP)"]
-        CAT1(["KETENTUAN: 1 hari kerja dihitung mulai dari jam kerja pada hari dimulainya proses awal SOP sampai dengan hari kerja berikutnya (poin a)"])
-        CAT2(["SIMBOL PENUNDAAN delay & PROSES LAIN ⏸: norma waktu dikecualikan bila pekerjaan dilaksanakan unit kerja lain di luar organisasi, atau gangguan aplikasi menghambat proses melebihi 2 jam (poin b)"])
-        CAT3(["KEWENANGAN Plt./Plh.: bila pejabat definitif berhalangan tetap/sementara, Pelaksana Tugas Plt. / Pelaksana Harian Plh. bertindak sesuai PMK tentang Plt./Plh. (poin c)"])
-    end
+    CAT(["KETENTUAN (tercantum pada tiap SOP): 1 hari kerja dihitung mulai jam kerja hari dimulainya proses awal s.d. hari kerja berikutnya · ⏸ norma waktu dikecualikan bila pekerjaan dilaksanakan unit kerja lain di luar organisasi / gangguan aplikasi melebihi 2 jam · Plt./Plh. berwenang sesuai PMK tentang Plt./Plh."])
 
-    %% ---------------- LANE: PENYERAH PIUTANG ----------------
-    subgraph LANE_PP["🏦 EKSTERNAL — PENYERAH PIUTANG"]
-        PPSTART(["MULAI — Menyampaikan Surat Penyerahan Pengurusan PN beserta dokumen pendukung (SOP 1 In)"])
-        PPTERIMA["Menerima: SP3N / SPnPPN / permintaan kelengkapan-ekspose / permintaan dokumen asli barjam / PSBDT / SPPNS / SKPPN / SPPNL & dokumen asli (PMK 240 Psl 309, 311)"]
-        PPSETUJU["Mempertimbangkan permintaan persetujuan penebusan (SOP 88)"]
-        PPUSUL["Mengajukan usul penarikan pengurusan PN — restrukturisasi (PP 28/2022 Psl 72; SOP 93 In)"]
-    end
+    START(["MULAI — Penyerah Piutang menyampaikan Surat Penyerahan Pengurusan PN beserta dokumen pendukung"])
 
-    %% ---------------- LANE: PENANGGUNG / PENJAMIN UTANG ----------------
-    subgraph LANE_PU["👤 EKSTERNAL — PENANGGUNG UTANG / PENJAMIN UTANG"]
-        PUG1{"PU/JU memenuhi panggilan? (Panggilan I / Terakhir / Pengumuman)"}
-        PUG2{"Mengakui utang & sepakat cara penyelesaian?"}
-        PUPB["Menandatangani PB — PB Sanggup / PB Tidak Sanggup (PMK 240 Psl 57-58)"]
-        PUGWAN{"Melaksanakan PB?"}
-        PUGSP{"Lunasi dalam 1×24 jam sejak SP diberitahukan? (PP 28/2022 Psl 20)"}
-        PUKR["Mengajukan permohonan keringanan utang (SOP 15 In)"]
-        PUPOT["Penjamin Utang mengajukan penebusan (SOP 88 / 90 In)"]
-        PUPTL["PU / Penjamin / Pembeli mengajukan Penjualan Tanpa Melalui Lelang (SOP 85 In)"]
-        PUPAKSA["Objek Paksa Badan"]
-    end
+    AUX(["SOP pendukung lainnya — 4, 5, 25, 27, 31, 36-37, 40-42, 72-76, 79-82, 97-99 — tidak digambar agar bagan ringkas; SLA & kutipannya tercantum pada tabel traceability halaman ini"])
 
-    %% ---------------- LANE: INSTANSI TERKAIT ----------------
-    subgraph LANE_INST["🏛 EKSTERNAL — INSTANSI TERKAIT"]
-        INKEJ["Kepala Kejaksaan Tinggi — menerbitkan izin Paksa Badan (SOP 61 In; PMK 240 Psl 193)"]
-        INLAPAS["Lapas / Rutan — menyediakan tempat Paksa Badan (PP 28/2022 Psl 60)"]
-        INJAB["K/L / Pemda / badan lain — menerima daftar PU/JU untuk pertimbangan pengangkatan jabatan publik (PP 28/2022 Psl 52)"]
-        INKPKNL["KPKNL lain — bantuan penelitian lapangan, pemberitahuan SP & SPPB, penyitaan, lelang (SOP 29-30, 51, 55, 66-67) ⏸"]
-        INBLOK["Instansi / pejabat pendaftaran hak — melaksanakan pemblokiran / pencabutan (PP 28/2022 Psl 24)"]
-    end
+    START -.->|"berkas penyerahan (SOP 1 In)"| P1
+    P1["<b>T1 · 1-KPKNL-PN</b> — Kepala KPKNL mendisposisikan → Kasi PN → Penelitian berkas → Resume Hasil Penelitian Kasus<br/><i>SLA:</i> 7 hk"]
+    P1 --> G1
+    G1{"Hasil Penelitian Kasus?<br/>syarat penyerahan: PP 28/2022 Psl 8"}
+    G1 -->|"memenuhi → terbit <b>SP3N</b> — pengurusan beralih ke PUPN (Psl 13)"| P2
+    G1 -->|"data belum lengkap / perlu penjelasan"| P3
+    G1 -->|"tidak memenuhi syarat → SPnPPN"| E5
+    P3["<b>T1 · 3-KPKNL-PN</b> — Surat Permintaan Kelengkapan Data / Ekspose<br/><i>SLA:</i> 9 hk"]
+    P3 -.->|"kelengkapan / penjelasan dari Penyerah Piutang"| P1
+    P2["<b>T1 · 2-KPKNL-PN</b> — Surat Permintaan Dokumen Asli Barjam & Surat Pernyataan Kesanggupan Roya<br/><i>SLA:</i> 4 hk"]
+    P2 --> P3B
+    P3B["<b>T1 · 21-24, 26, 28-30, 95, 38</b> — Administrasi & penelitian barang jaminan<br/>penerimaan / surat penitipan / penitipan / pemeliharaan (21-23: 1/5/2 hk; 24: s.d. lunas / selesai / barjam terjual) · penelitian dokumen (26: ≤6 hk) · penelitian lapangan (28: ≤3 hk; bantuan KPKNL lain 29/30: ≤5/≤6 hk ⏸) · keaslian dokumen (95: 6 hk) · persetujuan pendayagunaan (38: ≤6 hk)"]
 
-    %% ---------------- LANE: PUPN PUSAT & SEKRETARIAT ----------------
-    subgraph LANE_PUPN["⚖ PUPN PUSAT & SEKRETARIAT PUPN"]
-        PUPNP["Ketua PUPN Pusat — menyetujui rencana Paksa Badan (SOP 60 In; PMK 240 Psl 193 ayat 2)"]
-        PUPNSEK["Sekretariat PUPN — meneliti konsep surat / keputusan PUPN (PMK 102/PMK.06/2017 Psl 22-24)"]
-    end
+    P3B --> P4
+    P4["<b>T2 · 7/8/9-KPKNL-PN</b> — Pemanggilan PU/JU<br/>Surat Panggilan Pertama (7: 5 hk) → Panggilan Terakhir (8: 5 hk) → Pengumuman (9: 10 hk — ND Laporan Ketersediaan Anggaran + BA Penempelan Pengumuman)"]
+    P4 --> G2
+    G2{"PU/JU memenuhi panggilan,<br/>mengakui utang & sepakat cara penyelesaian?"}
+    G2 -->|"hadir & mengakui"| P5
+    G2 -->|"tidak hadir (setelah pengumuman) / tidak mengakui / menolak menandatangani tanpa alasan sah"| P9
+    P5["<b>T2 · 10/11-KPKNL-PN</b> — Tanya Jawab (10: 3 hk) → Pernyataan Bersama (11: 5 hk)<br/>PB atau PB Tidak Sanggup (PMK 240 Psl 57-58) · BAPN dikenakan sejak SP3N (Psl 289)"]
+    P5 --> G3
+    G3{"PB dilaksanakan?"}
+    G3 -->|"ya — pembayaran / angsuran hingga lunas"| E1
+    G3 -.->|"PU mengajukan keringanan utang (PP 28/2022 Psl 67)"| P15
+    G3 -->|"wanprestasi"| P6
+    P6["<b>T2 · 12-KPKNL-PN</b> — Surat Peringatan PB<br/><i>SLA:</i> 6 hk (PP 28/2022 Psl 18-19 b)"]
+    P9["<b>T2 · 14-KPKNL-PN</b> — Penetapan Jumlah Piutang Negara (PJPN)<br/><i>SLA:</i> 5 hk · ⚠ dasar PMK 240 Psl 62 telah dihapus PMK 23/2026 — PP 28/2022 Psl 19 c-d: penagihan sekaligus dengan SP"]
+    P9 -.->|"koreksi besaran hasil verifikasi"| P10
+    P10["<b>T2 · 13-KPKNL-PN</b> — SKPBN: Surat Pemberitahuan Koreksi/Perubahan Besaran PN<br/><i>SLA:</i> 5 hk (kewenangan tetap: PP 4/2026 Psl 7 e)"]
 
-    %% ---------------- LANE: KEPALA KANWIL ----------------
-    subgraph LANE_KANWIL["👔 KEPALA KANWIL DJKN — KETUA PUPN CABANG"]
-        KW1["Ketua PUPN Cabang — menandatangani SPPB / Perpanjangan (SOP 61-62 Pihak)"]
-        KW2["Ketua PUPN Cabang — menetapkan Nilai Limit lelang (SOP 81; PP 4/2026 Psl 7 huruf l)"]
-        KW3["Kepala Kanwil — menerima permohonan pertimbangan keringanan (SOP 17 Out; PMK 240 Psl 66 huruf c)"]
-    end
+    P6 --> P11
+    P9 --> P11
+    P10 --> P11
+    P11["<b>T3 · 52-KPKNL-PN</b> — Surat Paksa (SP) — kekuatan pelaksanaan seperti putusan pengadilan<br/>perintah lunasi <b>1×24 jam</b> sejak pemberitahuan (PP 28/2022 Psl 20) · pemberitahuan oleh Juru Sita + 2 saksi (50/51: 10/8 hk ⏸)<br/><i>SLA:</i> 8 hk"]
+    P11 --> G4
+    G4{"Lunas dalam 1×24 jam?"}
+    G4 -->|"ya"| E1
+    G4 -->|"tidak"| P12
+    P12["<b>T3 · 32/34, 53-58</b> — Pemblokiran & Penyitaan (PP 28/2022 Psl 24-26)<br/>pemblokiran (32: ≤5 hk) · pencabutan pemblokiran (34: ≤6 hk) · SPP (53: 3 hk) · pelaksanaan penyitaan Juru Sita (54: 11 hk; bantuan 55: 5 hk ⏸) · sita persamaan (56/57: 5 hk) · pengangkatan penyitaan SPPS (58: 7 hk)"]
+    P12 -.->|"alternatif Penjamin Utang: penebusan"| P16
+    P12 --> P7
+    P7["<b>T3 · 39, 33, 43-49</b> — Pemeriksaan & Pencegahan<br/>pemeriksaan diri & kemampuan PU/JU (39: 11 hk) · izin keterangan simpanan nasabah (33: ≤6 hk) · usul pencegahan ke luar wilayah RI (43: 5 hk) · perpanjangan pencegahan (44: 4 hk) · izin bepergian (46: 9 hk; pertimbangan 45: 7 hk) · tidak diperpanjang / laporan / pencabutan (47/48/49: 3/12/3 hk)"]
+    P7 --> G6
+    G6{"Syarat Paksa Badan terpenuhi?<br/>PMK 240 Psl 191: PU tidak memenuhi SP · sisa hutang ≥ Rp1 miliar · Barjam tidak ada / tidak menutup · PU mampu namun tidak beritikad baik · objek belum berumur 80 tahun"}
+    G6 -->|"ya"| P8
+    G6 -->|"tidak"| P13
+    P8["<b>T3 · 59-63, 65, 66-70</b> — Paksa Badan (jangka ≤6 bulan + perpanjangan 1×6 bulan, PP 28/2022 Psl 58)<br/>persetujuan Ketua PUPN Pusat (59: 7 hk) → izin Kepala Kejaksaan Tinggi (60: 7 hk) → SPPB oleh Ketua PUPN Cabang / Kepala Kanwil (61: 8 hk) · bantuan penyediaan tempat Lapas/Rutan (SOP tanpa nomor, urutan ke-65: 6 hk ⏸) → pemberitahuan (63: 11 hk) → pelaksanaan (68: 6 hk) · izin keluar (69: 2 hk — ≤3 hari sejak permohonan, PMK 240 Psl 214) · perpanjangan (62: 5 hk) · pembebasan objek (70: 5 hk)"]
+    P8 -->|"penyelesaian lanjutan atas barang sitaan"| P13
+    P13["<b>T3 · 77/81/78-KPKNL-PN</b> — Penjualan lelang barang sitaan (SOP 71-82)<br/>SPPBS (77: 3 hk) → Nilai Limit oleh Ketua PUPN Cabang (81: 3 hk) → penyerahan kelengkapan dokumen lelang (78: 3 hk) → lelang"]
+    P13 -.->|"sebelum pengumuman lelang: permohonan PU / Penjamin / pembeli"| P17
+    P13 --> G5
+    G5{"Hasil lelang menutup utang?"}
+    G5 -->|"ya"| E1
+    G5 -->|"sisa utang — PU tidak mampu / tidak diketahui; Barjam tidak ada / terjual / ditebus (PP 28/2022 Psl 69)"| P14
+    P14["<b>T4 · 92/91, 96</b> — PSBDT & potensi piutang<br/>ND Permintaan Verifikasi PSBDT (92: 3 hk) → Surat PSBDT (91: 4 hk) · penggalian potensi PN (96: 5 hk)"]
+    P14 --> E4
 
-    %% ---------------- LANE: KEPALA KPKNL ----------------
-    subgraph LANE_KKPNL["🏢 INTERNAL KPKNL — KEPALA KPKNL (Ketua/Anggota PUPN Cabang)"]
-        KPDIS["Kepala KPKNL — menerima Surat Penyerahan, mendisposisikan & menugaskan Kasi PN (SOP 1 Langkah 1)"]
-        KPG{"Hasil Penelitian Kasus? (syarat penyerahan: PP 28/2022 Psl 8; PMK 240 Psl 4-5)"}
-    end
+    P15["<b>T4 · 15/16/17, 20</b> — Keringanan utang (keputusan persetujuan/penolakan oleh Menteri — PP 28/2022 Psl 67)<br/>penelitian kelengkapan (15: 3 hk) → permintaan kelengkapan/penjelasan (16: 5 hk) → persetujuan/penolakan (17: 9 hk) → Surat Peringatan (20: pembayaran 7 hk bulanan / 30 hk triwulanan sejak surat peringatan)"]
+    P15 -->|"pelunasan sesuai hasil keringanan"| E1
+    P16["<b>T4 · 88, 89/90, 87</b> — Penebusan oleh Penjamin Utang<br/>Surat Permintaan Persetujuan Penebusan kepada Penyerah Piutang (88: 10 hk) → di bawah nilai pengikatan (89: 10 hk) / sesuai nilai pengikatan (90: 7 hk) · wanprestasi → peringatan (87: 5 hk)"]
+    P16 -->|"penebusan dibayar → lunas"| E1
+    P16 -.->|"wanprestasi → barang jaminan dilelang"| P13
+    P17["<b>T4 · 85, 83/86, 84</b> — Penjualan Tanpa Melalui Lelang<br/>Surat Permintaan Persetujuan (85: 10 hk) → Persetujuan (83/86: 12 hk — nilai paling sedikit sama dengan Nilai Pasar, Psl 261) · pembayaran tunai paling lama 2 bulan sejak persetujuan (Psl 266) · wanprestasi → peringatan (84: 5 hk) → persetujuan batal"]
+    P17 -->|"tunai ≤2 bulan terpenuhi → lunas"| E1
+    P17 -.->|"batal → kembali dilelang"| P13
 
-    %% ---------------- LANE: KASI PN ----------------
-    subgraph LANE_KASIPN["📂 INTERNAL KPKNL — KEPALA SEKSI PIUTANG NEGARA (Kasi PN)"]
-        KPNVER["Kasi PN — mengarahkan Pelaksana; memeriksa & meneliti konsep produk hukum (peran R/S lintas SOP 1-96)"]
-    end
+    START -.->|"kapan pun: usul penarikan — restrukturisasi (PP 28/2022 Psl 72) / pemberitahuan kekeliruan, perkara pidana, atau putusan pengadilan (SOP 6 In)"| P18
+    P18["<b>T4 · 93, 6, 94</b> — Penyelesaian administratif<br/>ND Hasil Penelitian & Persetujuan/Penolakan Usul Penarikan (93: 3 hk — BAPN penarikan ≤14 hari, Psl 307) · Pengembalian Pengurusan PN (6: 10 hk) · PTDM piutang instansi pemerintah pusat/daerah (94: 12 hk)"]
+    P18 -->|"usul disetujui + BAPN penarikan diselesaikan"| E2
+    P18 -->|"kekeliruan / perkara pidana / putusan pengadilan"| E3
+    P18 -.->|"piutang instansi pemerintah telah dihapuskan (SK penghapusan)"| E6
 
-    %% ---------------- LANE: KASI HI ----------------
-    subgraph LANE_KASIHI["⚖ INTERNAL KPKNL — KEPALA SEKSI HUKUM & INFORMASI (Kasi HI)"]
-        P43["<b>T3 · 43-KPKNL-PN</b><br/>Surat Usul Pencegahan PU/JU Bepergian ke Luar Wilayah RI<br/><i>Out:</i> ND Usul Pencegahan<br/><i>SLA:</i> 5 hari kerja · pelaporan melalui Kanwil & Kantor Pusat DJKN"]
-        P46["<b>T3 · 46-KPKNL-PN</b><br/>Surat Pemberitahuan Izin Bepergian ke luar Wilayah RI<br/><i>SLA:</i> 9 hari kerja"]
-        P4749["<b>T3 · 47/48/49-KPKNL-PN</b><br/>Usul tidak dilakukan perpanjangan pencegahan — 3 hk · Laporan perkembangan objek pencegahan — 12 hk · Usul pencabutan pencegahan — 3 hk"]
-    end
+    E1(["🏁 SPPNL — Surat Pernyataan Piutang Negara Lunas (PMK 240 Psl 310; PP 28/2022 Psl 71) — disampaikan kepada PU & Penyerah Piutang (Psl 311)"])
+    E2(["🏁 SPPNS — Surat Pernyataan Pengurusan Piutang Negara Selesai (PMK 240 Psl 308; PP 28/2022 Psl 73)"])
+    E3(["🏁 SKPPN — Surat Pengembalian Pengurusan Piutang Negara (SOP 6; PP 4/2026 Psl 7 c)"])
+    E4(["🏁 PSBDT — Piutang Negara Sementara Belum Dapat Ditagih (SOP 91; PP 28/2022 Psl 69) — diberitahukan kepada Penyerah Piutang (Psl 286) & dasar tindakan keperdataan s.d. lunas/selesai (Psl 49-52)"])
+    E5(["🏁 SPnPPN — Surat Penolakan Pengurusan Piutang Negara (SOP 1; PP 4/2026 Psl 7 b)"])
+    E6(["🏁 PTDM — Surat Pernyataan PN Telah Dihapuskan Mutlak (SOP 94; PP 4/2026 Psl 7 v)"])
 
-    %% ---------------- LANE: SUBBAGIAN UMUM ----------------
-    subgraph LANE_SUBBAG["🗄 INTERNAL KPKNL — KEPALA SUBBAGIAN UMUM / PENGADMINISTRASIAN UMUM"]
-        P9["<b>T2 · 9-KPKNL-PN</b><br/>Pengumuman Panggilan<br/><i>In:</i> Surat Panggilan Terakhir; BKPN<br/><i>Out:</i> ND Laporan Ketersediaan Anggaran; Pengumuman di surat kabar / papan pengumuman; BA Penempelan Pengumuman<br/><i>SLA:</i> 10 hari kerja"]
-        P95["<b>T1 · 95-KPKNL-PN</b><br/>Penelitian Keaslian Dokumen Barang Jaminan<br/><i>In:</i> laporan penelitian lapangan; surat tugas<br/><i>Out:</i> Laporan Penelitian Keaslian Dokumen Barjam<br/><i>SLA:</i> 6 hari kerja"]
-    end
-
-    %% ---------------- LANE: KASI PENILAIAN / LELANG ----------------
-    subgraph LANE_KASIPP["📐 INTERNAL KPKNL — KASI PELAYANAN PENILAIAN / KASI PELAYANAN LELANG"]
-        PLPEN["Kasi Pelayanan Penilaian — Laporan Penilaian Barjam/HKL (PMK 240 Psl 233 jo. PMK 23/2026: termasuk aset keuangan & aset digital/kripto)"]
-        P85["<b>T4 · 85-KPKNL-PN</b><br/>Surat Permintaan Persetujuan Penjualan Tanpa Melalui Lelang<br/><i>In:</i> Permohonan PU/Penjamin; Laporan Penilaian<br/><i>SLA:</i> 10 hari kerja"]
-        P8386["<b>T4 · 83/86-KPKNL-PN</b><br/>Surat Persetujuan / Penolakan Penjualan Tanpa Melalui Lelang<br/>Nilai persetujuan paling sedikit sama dengan Nilai Pasar (PMK 240 Psl 261)<br/>Pembayaran tunai paling lama 2 bulan sejak persetujuan (PMK 240 Psl 266)<br/><i>SLA:</i> 12 hari kerja"]
-    end
-
-    %% ---------------- LANE: PELAKSANA SEKSI PN ----------------
-    subgraph LANE_PEL["🧑‍💼 INTERNAL KPKNL — PELAKSANA SEKSI PN (Perumus · Pemroses Data · Penyaji Data · Analis · Pemeriksa · Juru Sita · Petugas Khusus · Penata Usaha)"]
-
-        P1["<b>T1 · 1-KPKNL-PN</b><br/>Penyusunan Resume Hasil Penelitian Kasus & penerbitan SP3N / SPnPPN<br/><i>In:</i> Surat Penyerahan Pengurusan PN + dokumen pendukung<br/><i>Out:</i> Resume Hasil Penelitian Kasus; SP3N / SPnPPN<br/><i>SLA:</i> 7 hari kerja"]
-        P2["<b>T1 · 2-KPKNL-PN</b><br/>Surat Permintaan Dokumen Asli Barang Jaminan & Surat Pernyataan Kesanggupan Roya<br/><i>In:</i> SP3N<br/><i>SLA:</i> 4 hari kerja"]
-        P3["<b>T1 · 3-KPKNL-PN</b><br/>Surat Permintaan Kelengkapan Data dan/atau Permintaan Penjelasan (Ekspose)<br/><i>In:</i> Surat Penyerahan Pengurusan PN<br/><i>SLA:</i> 9 hari kerja"]
-        P2124["<b>T1 · 21/22/23/24-KPKNL-PN</b><br/>Administrasi barang jaminan:<br/>21 Penerimaan dokumen asli/fisik barang — 1 hk · 22 Surat Penitipan — 5 hk · 23 Penitipan — 2 hk · 24 Pemeliharaan — s.d. lunas / selesai / barjam terjual"]
-        P26["<b>T1 · 26-KPKNL-PN</b><br/>Penelitian Dokumen (asli Barjam)<br/><i>Out:</i> Laporan Hasil Penelitian Dokumen Asli Barang Jaminan<br/><i>SLA:</i> paling lama 6 (enam) hari kerja"]
-        P2930["<b>T1 · 29/30-KPKNL-PN ⏸</b><br/>29 Minta bantuan penelitian lapangan ke KPKNL lain — paling lama 5 hk · 30 ND pemberitahuan penelitian lapangan luar wilayah — paling lama 6 hk<br/>⏸ norma waktu dikecualikan (unit kerja lain)"]
-        P38["<b>T1 · 38-KPKNL-PN</b><br/>Surat Persetujuan / Penolakan Pendayagunaan Barang Jaminan<br/><i>In:</i> persetujuan/penolakan dari Penyerah Piutang<br/><i>SLA:</i> paling lama 6 hari kerja"]
-
-        P7["<b>T2 · 7-KPKNL-PN</b><br/>Pembuatan Surat Panggilan Pertama<br/><i>In:</i> SP3N; Berkas Kasus Piutang Negara (BKPN)<br/><i>Out:</i> Surat Panggilan kepada Penanggung Utang<br/><i>SLA:</i> 5 hari kerja"]
-        P8["<b>T2 · 8-KPKNL-PN</b><br/>Pembuatan Surat Panggilan Terakhir<br/><i>In:</i> Surat Panggilan Pertama; BKPN<br/><i>Out:</i> Surat Panggilan Terakhir<br/><i>SLA:</i> 5 hari kerja"]
-        P10["<b>T2 · 10-KPKNL-PN</b><br/>Tanya Jawab dengan Penanggung Utang<br/><i>In:</i> Surat Panggilan / Terakhir / Pengumuman; dokumen asli bukti identitas; BKPN<br/><i>Out:</i> BA Tanya Jawab; ND Kesimpulan Hasil Tanya Jawab<br/><i>SLA:</i> 3 hari kerja"]
-        P11["<b>T2 · 11-KPKNL-PN</b><br/>Penerbitan Pernyataan Bersama (PB)<br/><i>In:</i> BA Tanya Jawab; ND Kesimpulan; BKPN<br/><i>Out:</i> PB / PB Tidak Sanggup (+ ND pengantar bila Ketua PUPN Cabang dijabat Kepala KPKNL)<br/><i>SLA:</i> 5 hari kerja · BAPN dikenakan sejak SP3N (PMK 240 Psl 289)"]
-        P12["<b>T2 · 12-KPKNL-PN</b><br/>Surat Peringatan Pernyataan Bersama (PP 28/2022 Psl 18)<br/><i>In:</i> PB; BKPN<br/><i>SLA:</i> 6 hari kerja"]
-        P13["<b>T2 · 13-KPKNL-PN</b><br/>SKPBN — Surat Pemberitahuan Koreksi/Perubahan Besaran PN<br/><i>In:</i> ND hasil verifikasi; PB / PJPN (koreksi pasca); BKPN<br/><i>SLA:</i> 5 hari kerja · dasar PMK 240 Psl 63 dihapus oleh PMK 23/2026; kewenangan koreksi tetap pada PP 4/2026 Psl 7 huruf e"]
-        P14["<b>T2 · 14-KPKNL-PN</b><br/>Penetapan Jumlah Piutang Negara (PJPN)<br/>Pemicu: PU tidak mengakui & tidak dapat membuktikan / mengakui tetapi menolak menandatangani PB tanpa alasan sah / tidak memenuhi panggilan & pengumuman<br/><i>SLA:</i> 5 hari kerja · dasar PMK 240 Psl 62 dihapus oleh PMK 23/2026; PP 28/2022 Psl 19 huruf c-d: penagihan sekaligus dengan SP"]
-
-        P39["<b>T3 · 39-KPKNL-PN</b><br/>Pemeriksaan Terhadap Diri & Kemampuan PU/JU<br/><i>In:</i> Surat Tugas; berkas; Form wawancara / BA / Laporan<br/><i>Out:</i> ND + Laporan Hasil Pemeriksaan<br/><i>SLA:</i> 11 hari kerja"]
-        P33["<b>T3 · 33-KPKNL-PN</b><br/>Surat Permohonan Izin Meminta Keterangan Simpanan Nasabah<br/><i>Out:</i> ND permohonan izin keterangan simpanan nasabah<br/><i>SLA:</i> paling lama 6 hari kerja"]
-        P3234["<b>T3 · 32/34-KPKNL-PN</b><br/>Surat Permohonan Pemblokiran Barjam/HKL & Pencabutan Pemblokiran (PP 28/2022 Psl 24-25)<br/><i>SLA:</i> SOP 32 — paling lama 5 hk · SOP 34 — paling lama 6 hk"]
-        P52["<b>T3 · 52-KPKNL-PN</b><br/>Penerbitan Surat Paksa (SP)<br/><i>In:</i> Surat Peringatan PB & hasil verifikasi<br/>SP berkekuatan pelaksanaan seperti putusan pengadilan; perintah lunasi 1×24 jam (PP 28/2022 Psl 20)<br/><i>SLA:</i> 8 hari kerja"]
-        P5051["<b>T3 · 50/51-KPKNL-PN ⏸</b><br/>Pemberitahuan SP oleh Juru Sita disaksikan 2 saksi — 10 hk · Minta bantuan pemberitahuan ke KPKNL lain — 8 hk"]
-        P53["<b>T3 · 53-KPKNL-PN</b><br/>Surat Perintah Penyitaan (SPP)<br/><i>In:</i> Surat Paksa & hasil verifikasi<br/><i>SLA:</i> 3 hari kerja · penyitaan bila 1×24 jam sejak SP tidak dilunasi (PP 28/2022 Psl 26)"]
-        P54["<b>T3 · 54-KPKNL-PN</b><br/>Rencana & Pelaksanaan Penyitaan (+ SOP 55 bantuan penyitaan — 5 hk ⏸)<br/><i>Out:</i> BA & Laporan Pelaksanaan Penyitaan<br/><i>SLA:</i> 11 hari kerja"]
-        P5657["<b>T3 · 56/57-KPKNL-PN</b><br/>Surat Permintaan Sita Persamaan & pelaksanaannya (atas HKL lain)<br/><i>SLA:</i> 5 hari kerja"]
-        P58["<b>T3 · 58-KPKNL-PN</b><br/>SPPS — Surat Perintah Pengangkatan Penyitaan<br/><i>In:</i> ND hasil verifikasi Kasi HI<br/><i>Out:</i> SPPS; BA Pengangkatan Penyitaan<br/><i>SLA:</i> 7 hari kerja"]
-        P77["<b>T3 · 77-KPKNL-PN</b><br/>SPPBS — Surat Perintah Penjualan Barang Sitaan<br/><i>In:</i> SPP; PU tidak menyelesaikan hutangnya<br/><i>SLA:</i> 3 hari kerja"]
-        P78["<b>T3 · 78-KPKNL-PN</b><br/>ND Penyerahan Kelengkapan Dokumen Lelang<br/><i>In:</i> ND permintaan kelengkapan dari Kepala Seksi Lelang<br/><i>SLA:</i> 3 hari kerja"]
-        PLELANG["<b>T3 · Pelaksanaan Lelang (SOP 71-82; PP 28/2022 Bab VIII)</b><br/>Penjualan Barjam/HKL melalui lelang oleh Pejabat Penjual"]
-        GLELANG{"Hasil lelang menutup utang?"}
-        P59["<b>T3 · 59-KPKNL-PN</b><br/>Minta Persetujuan Paksa Badan kepada Ketua PUPN Pusat<br/>Syarat (PMK 240 Psl 191): PU tidak memenuhi SP; sisa hutang ≥ Rp1.000.000.000; Barjam tidak ada/tidak menutup; PU mampu namun tak beritikad baik; objek belum berumur 80 tahun (huruf d-e)<br/><i>SLA:</i> 7 hari kerja"]
-        P60["<b>T3 · 60-KPKNL-PN</b><br/>Minta Izin Paksa Badan kepada Kepala Kejaksaan Tinggi<br/><i>In:</i> persetujuan Ketua PUPN Pusat<br/><i>SLA:</i> 7 hari kerja"]
-        P61["<b>T3 · 61-KPKNL-PN</b><br/>SPPB — Surat Perintah Paksa Badan<br/><i>In:</i> izin Paksa Badan dari Kejaksaan Tinggi<br/><i>SLA:</i> 8 hari kerja · jangka Paksa Badan ≤6 bln + perpanjangan 1×6 bln (PP 28/2022 Psl 58)"]
-        P62["<b>T3 · 62-KPKNL-PN</b><br/>Surat Perintah Perpanjangan Paksa Badan<br/><i>SLA:</i> 5 hari kerja"]
-        P65["<b>T3 · SOP tanpa nomor (urutan ke-65) ⏸</b><br/>Surat Permintaan Bantuan Penyediaan Tempat Pelaksanaan Paksa Badan<br/>No. SOP pada dokumen sumber kosong (hlm. 535-539 fisik)<br/><i>SLA:</i> 6 hari kerja"]
-        P63["<b>T3 · 63-KPKNL-PN</b><br/>Pemberitahuan SPPB / Perpanjangan<br/><i>Out:</i> Laporan Pemberitahuan SPPB / Perpanjangan<br/><i>SLA:</i> 11 hari kerja"]
-        P66["<b>T3 · 66/67-KPKNL-PN ⏸</b><br/>Minta bantuan pemberitahuan SPPB — 7 hk · bantuan pelaksanaan Paksa Badan — 6 hk (Kepolisian / Kejaksaan / KPKNL lain)"]
-        P68["<b>T3 · 68-KPKNL-PN</b><br/>Pelaksanaan Paksa Badan oleh Juru Sita<br/>Dilaksanakan setelah 14 hari sejak pemberitahuan SPPB (SOP 68 In); tempat: Lapas/Rutan (PP 28/2022 Psl 60)<br/><i>Out:</i> BA Pelaksanaan Paksa Badan<br/><i>SLA:</i> 6 hari kerja"]
-        P69["<b>T3 · 69-KPKNL-PN</b><br/>Persetujuan / Penolakan Izin Keluar dari Tempat Paksa Badan<br/>Alasan: pengobatan; pemakaman orang tua/suami/isteri/anak; wali nikah dll. (PMK 240 Psl 212-213)<br/><i>SLA:</i> 2 hari kerja · PMK 240 Psl 214: paling lama 3 hari sejak permohonan izin diterima<br/>⚠ Aturan '3 hari' berlaku untuk izin keluar — bukan penerbitan SPPB"]
-        P70["<b>T3 · 70-KPKNL-PN</b><br/>Surat Perintah Pembebasan Objek Paksa Badan<br/><i>SLA:</i> 5 hari kerja"]
-
-        P15["<b>T4 · 15-KPKNL-PN</b><br/>ND Hasil Penelitian Kelengkapan Permohonan Keringanan<br/><i>In:</i> Permohonan Keringanan Utang<br/><i>SLA:</i> 3 hari kerja"]
-        P16["<b>T4 · 16-KPKNL-PN</b><br/>Surat Permintaan Kelengkapan Data/Berkas dan/atau Penjelasan keringanan<br/><i>SLA:</i> 5 hari kerja"]
-        P17["<b>T4 · 17-KPKNL-PN</b><br/>Surat Persetujuan / Penolakan Keringanan<br/><i>Out:</i> Laporan Hasil Analisis; Surat Persetujuan / Penolakan / Surat Permohonan Pertimbangan ke Kanwil<br/><i>SLA:</i> 9 hari kerja · keputusan keringanan oleh Menteri (PP 28/2022 Psl 67)"]
-        P20["<b>T4 · 20-KPKNL-PN</b><br/>Surat Peringatan & Surat Peringatan Terakhir (keringanan)<br/>Pembayaran paling lama 7 hk (angsuran bulanan) / 30 hk (triwulanan) sejak tanggal surat peringatan (SOP 20 Prosedur)<br/>⚠ Bagian Keluaran & SLA pada dokumen sumber tidak konsisten dengan judul"]
-        P88["<b>T4 · 88-KPKNL-PN</b><br/>Surat Permintaan Persetujuan Penebusan kepada Penyerah Piutang<br/><i>In:</i> Permohonan Penjamin Utang; Laporan Penilaian<br/><i>SLA:</i> 10 hari kerja"]
-        P89["<b>T4 · 89-KPKNL-PN</b><br/>Surat Persetujuan Penebusan di Bawah Nilai Pengikatan<br/><i>SLA:</i> 10 hari kerja"]
-        P90["<b>T4 · 90-KPKNL-PN</b><br/>Surat Persetujuan Penebusan Sesuai Nilai Pengikatan<br/><i>SLA:</i> 7 hari kerja"]
-        P87["<b>T4 · 87-KPKNL-PN</b><br/>Surat Peringatan Pembayaran Penebusan (PMK 240: peringatan tertulis bila Penjamin wanprestasi)<br/><i>SLA:</i> 5 hari kerja"]
-        P84["<b>T4 · 84-KPKNL-PN</b><br/>Surat Peringatan Pembayaran Penebusan — Penjualan Tanpa Lelang (PMK 240 Psl 266 ayat 2)<br/><i>SLA:</i> 5 hari kerja"]
-        P91["<b>T4 · 91-KPKNL-PN</b><br/>Penerbitan Surat PSBDT<br/><i>In:</i> Verifikasi Seksi HI<br/><i>Out:</i> Surat Piutang Negara Sementara Belum Dapat Ditagih<br/><i>SLA:</i> 4 hari kerja"]
-        P92["<b>T4 · 92-KPKNL-PN</b><br/>ND Permintaan Verifikasi PSBDT<br/><i>In:</i> Laporan penelitian lapangan / Pemeriksaan; surat keterangan tidak mampu / tidak diketahui keberadaan PU<br/><i>SLA:</i> 3 hari kerja · syarat PSBDT: PP 28/2022 Psl 69 (termasuk PU 'bermasalah yang sulit diselesaikan'); PMK 240 Psl 281-283: pemeriksaan bila sisa ≥ Rp500 jt; penelitian lapangan bila ≤ Rp50 jt"]
-        P93["<b>T4 · 93-KPKNL-PN</b><br/>ND Hasil Penelitian & Surat Persetujuan / Penolakan Usul Penarikan<br/><i>In:</i> surat usulan penarikan dari Penyerah Piutang<br/><i>SLA:</i> 3 hari kerja · BAPN penarikan diselesaikan ≤14 hari sejak Surat Persetujuan Penarikan; teguran → Surat Pembatalan Persetujuan Penarikan (Psl 307)"]
-        P96["<b>T4 · 96-KPKNL-PN</b><br/>Penggalian Potensi Piutang Negara (atas informasi/laporan penelitian lapangan)<br/><i>Out:</i> Laporan Penggalian Potensi PN<br/><i>SLA:</i> 5 hari kerja"]
-        P6["<b>T4 · 6-KPKNL-PN</b><br/>Pengembalian Pengurusan PN → SKPPN<br/><i>In:</i> pemberitahuan kekeliruan; perkara pidana; putusan pengadilan<br/><i>Out:</i> ND Hasil Verifikasi; Surat Pengembalian Pengurusan PN<br/><i>SLA:</i> 10 hari kerja"]
-        P94["<b>T4 · 94-KPKNL-PN</b><br/>Surat Pernyataan PN Telah Dihapuskan Mutlak (PTDM) — piutang instansi pemerintah pusat/daerah<br/><i>In:</i> SK Penetapan Penghapusan PN/Daerah<br/><i>SLA:</i> 12 hari kerja"]
-    end
-
-    %% ---------------- STATUS AKHIR ----------------
-    subgraph LANE_END["🏁 STATUS AKHIR"]
-        E1(["SPPNL — Surat Pernyataan Piutang Negara Lunas (PMK 240 Psl 310; PP 28/2022 Psl 71)"])
-        E2(["SPPNS — Surat Pernyataan Pengurusan PN Selesai (PMK 240 Psl 308; PP 28/2022 Psl 73)"])
-        E3(["SKPPN — Surat Pengembalian Pengurusan PN (SOP 6; PP 4/2026 Psl 7 huruf c)"])
-        E4(["PSBDT — Piutang Negara Sementara Belum Dapat Ditagih (SOP 91; PP 28/2022 Psl 69)"])
-        E5(["SPnPPN — Surat Penolakan Pengurusan PN (SOP 1; PP 4/2026 Psl 7 huruf b)"])
-        E6(["PTDM — Surat Pernyataan PN Telah Dihapuskan Mutlak (SOP 94; PP 4/2026 Psl 7 huruf v)"])
-    end
-
-    %% =============== ALUR — TAHAP 1 ===============
-    PPSTART -.->|"Surat Penyerahan Pengurusan PN + dokumen pendukung (SOP 1 In)"| KPDIS
-    KPDIS -->|"disposisi & penugasan (SOP 1 Langkah 1)"| KPNVER
-    KPNVER -->|"penugasan Pelaksana PN"| P1
-    P1 --> KPG
-    KPG -->|"syarat terpenuhi → terbit SP3N (PP 28/2022 Psl 11-13)"| P2
-    KPG -->|"data belum lengkap/jelas"| P3
-    KPG -->|"tidak memenuhi syarat → SPnPPN"| E5
-    P3 -.->|"Surat Permintaan Kelengkapan / Ekspose"| PPTERIMA
-    PPTERIMA -.->|"kelengkapan data / penjelasan"| P1
-    P2 -.->|"Permintaan Dokumen Asli Barjam + Pernyataan Kesanggupan Roya"| PPTERIMA
-    PPTERIMA -.->|"dokumen asli & fisik barang jaminan"| P2124
-    P2124 --> P26
-    P26 --> P2930
-    P2930 -.->|"bantuan penelitian lapangan"| INKPKNL
-    P2930 -->|"laporan penelitian lapangan + surat tugas (SOP 95 In)"| P95
-    PPTERIMA -.->|"persetujuan/penolakan pendayagunaan (SOP 38 In)"| P38
-    P38 -.->|"Surat Persetujuan/Penolakan Pendayagunaan"| PUPB
-
-    %% =============== ALUR — TAHAP 2 ===============
-    KPG -->|"SP3N + BKPN (SOP 7 In)"| P7
-    P7 -->|"PU tidak memenuhi panggilan pertama (SOP 8 In)"| P8
-    P8 --> P9
-    P7 -.->|"Surat Panggilan Pertama"| PUG1
-    P9 -.->|"Pengumuman Panggilan"| PUG1
-    PUG1 -->|"hadir"| P10
-    PUG1 -->|"tidak hadir setelah panggilan & pengumuman"| P14
-    P10 --> PUG2
-    PUG2 -->|"mengakui & sepakat → PB / PB Tidak Sanggup (PMK 240 Psl 57-58)"| P11
-    PUG2 -->|"tidak mengakui / menolak menandatangani tanpa alasan sah"| P14
-    P11 -.->|"PB / PB Tidak Sanggup"| PUPB
-    PUPB --> PUGWAN
-    PUGWAN -->|"PB dilaksanakan hingga lunas"| E1
-    PUGWAN -->|"wanprestasi PB"| P12
-    P12 -->|"Surat Peringatan PB (PP 28/2022 Psl 18-19 huruf b)"| P52
-    P14 -->|"PJPN; penagihan paksa (PP 28/2022 Psl 19 huruf c-d)"| P52
-    PUGWAN -.->|"koreksi hasil verifikasi (SOP 13 In)"| P13
-    P14 -.->|"koreksi pasca-PJPN (SOP 13 In)"| P13
-    P13 -.->|"SKPBN"| PUPB
-    PUGWAN -->|"PU mengajukan keringanan (PP 28/2022 Psl 67)"| PUKR
-    PUGWAN -->|"Penjamin Utang mengajukan penebusan"| PUPOT
-    PUGWAN -->|"mengajukan Penjualan Tanpa Lelang (PP 28/2022 Bab IX)"| PUPTL
-
-    %% =============== ALUR — TAHAP 3 ===============
-    P52 --> P5051
-    P5051 -.->|"SP diberitahukan Juru Sita + 2 saksi (PP 28/2022 Psl 21); perintah lunasi 1×24 jam"| PUGSP
-    P5051 -.->|"bantuan pemberitahuan (SOP 51)"| INKPKNL
-    PUGSP -->|"lunas"| E1
-    PUGSP -->|"tidak lunas → SPP (PP 28/2022 Psl 26)"| P53
-    PUGSP -.->|"pemblokiran HKL (PP 28/2022 Psl 24)"| P3234
-    P3234 -.->|"surat permohonan pemblokiran / pencabutan"| INBLOK
-    P53 --> P54
-    P53 -.->|"alternatif: sita persamaan atas HKL lain"| P5657
-    P5657 --> P58
-    P54 --> P58
-    P54 -->|"PU tidak menyelesaikan hutang (SOP 77 In)"| P77
-    P77 -->|"penilaian objek (PMK 240 Psl 233)"| PLPEN
-    PLPEN -->|"Laporan Penilaian (SOP 81 In)"| KW2
-    KW2 -->|"Nilai Limit (PP 4/2026 Psl 7 huruf l)"| PLELANG
-    P77 --> P78
-    P78 -->|"kelengkapan dokumen lelang"| PLELANG
-    PLELANG --> GLELANG
-    GLELANG -->|"melunasi utang"| E1
-    GLELANG -->|"sisa piutang (PP 28/2022 Psl 69)"| P92
-    PUGSP -->|"penugasan Pemeriksaan (SOP 39 In: Surat Tugas)"| P39
-    P39 -.->|"pendukung pemeriksaan (pengelompokan Tahap 3; In SOP 33 tidak dirinci sumber)"| P33
-    P39 -->|"hasil pemeriksaan / monitoring (SOP 43 In)"| P43
-    P43 -.->|"usul pencegahan via Kanwil & Kantor Pusat DJKN"| P46
-    P46 --> P4749
-    PUGSP -->|"sisa hutang ≥ Rp1 M & Barjam tidak menutup (PMK 240 Psl 191; SOP 59 In)"| P59
-    P59 -->|"rencana Paksa Badan (SOP 60 In)"| PUPNP
-    PUPNP -.->|"konsep melalui Sekretariat PUPN (PMK 102/2017 Psl 22-24)"| PUPNSEK
-    PUPNP -->|"persetujuan Ketua PUPN Pusat"| P60
-    P60 -.->|"Surat Permintaan Izin Paksa Badan"| INKEJ
-    INKEJ -.->|"izin Paksa Badan (SOP 61 In)"| P61
-    P61 -->|"penyiapan tempat pelaksanaan"| P65
-    P65 -.->|"minta bantuan penyediaan tempat"| INLAPAS
-    P61 --> KW1
-    KW1 -->|"SPPB"| P63
-    P61 -->|"perpanjangan (PP 28/2022 Psl 58)"| P62
-    P62 --> KW1
-    P63 -.->|"pemberitahuan SPPB / Perpanjangan"| PUPAKSA
-    P63 -->|"pelaksanaan setelah 14 hari sejak pemberitahuan (SOP 68 In)"| P68
-    P63 -.->|"bantuan antar-wilayah"| P66
-    P66 -.->|"bantuan Kepolisian/Kejaksaan/KPKNL lain"| INKPKNL
-    P68 -.->|"pelaksanaan di tempat Paksa Badan"| INLAPAS
-    P68 -.->|"objek ditempatkan"| PUPAKSA
-    PUPAKSA -->|"permohonan izin keluar (SOP 69 In)"| P69
-    P69 -.->|"persetujuan/penolakan ≤3 hari sejak permohonan (PMK 240 Psl 214)"| PUPAKSA
-    P68 -->|"setelah jangka waktu / pertimbangan (SOP 70 In)"| P70
-    P70 -->|"penyelesaian lanjutan atas barang sitaan"| P77
-
-    %% =============== ALUR — TAHAP 4 ===============
-    PUKR -->|"Permohonan Keringanan (SOP 15 In)"| P15
-    P15 --> P16
-    P16 --> P17
-    P17 -.->|"Surat Permohonan Pertimbangan (SOP 17 Out)"| KW3
-    P17 -->|"Surat Persetujuan Keringanan (SOP 20 In)"| P20
-    P20 -->|"pelunasan sesuai hasil keringanan"| E1
-    PUPOT -->|"SOP 88 In: permohonan + Laporan Penilaian"| P88
-    P88 -.->|"Surat Permintaan Persetujuan Penebusan"| PPSETUJU
-    PPSETUJU -.->|"persetujuan Penyerah Piutang"| P89
-    PUPOT -->|"sesuai nilai pengikatan (SOP 90 In)"| P90
-    P89 -->|"penebusan dibayar → lunas"| E1
-    P90 -->|"penebusan dibayar → lunas"| E1
-    P89 -->|"wanprestasi penebusan (PMK 240: peringatan tertulis)"| P87
-    P87 -->|"tetap tidak dibayar → barang jaminan dilelang"| PLELANG
-    PUPTL -->|"SOP 85 In: permohonan + Laporan Penilaian"| P85
-    P85 --> P8386
-    P8386 -->|"pembayaran tunai ≤ 2 bulan sejak persetujuan (PMK 240 Psl 266 ayat 1)"| E1
-    P8386 -->|"wanprestasi (PMK 240 Psl 266 ayat 2)"| P84
-    P84 -->|"tidak dipatuhi → persetujuan batal (Psl 266 ayat 3) → lelang"| PLELANG
-    P39 -.->|"Laporan Hasil Pemeriksaan (SOP 92 In)"| P92
-    P92 -->|"verifikasi Seksi HI (SOP 91 In)"| P91
-    P91 --> E4
-    P92 -.->|"informasi/laporan penelitian lapangan (SOP 96 Deskripsi)"| P96
-    E4 -.->|"pemberitahuan PSBDT kepada Penyerah Piutang (PMK 240 Psl 286)"| PPTERIMA
-    E4 -.->|"daftar PU/JU → tindakan keperdataan & pertimbangan pengangkatan jabatan publik (PP 28/2022 Psl 49-52)"| INJAB
-    E4 -.->|"piutang instansi pemerintah: SK penetapan penghapusan (SOP 94 In)"| P94
-    P94 --> E6
-    PPUSUL -->|"surat usulan penarikan (SOP 93 In)"| P93
-    P93 -->|"disetujui + BAPN penarikan diselesaikan (PMK 240 Psl 305-308; PP 28/2022 Psl 72-73)"| E2
-    PPTERIMA -.->|"pemberitahuan kekeliruan / perkara pidana / putusan pengadilan (SOP 6 In)"| P6
-    P6 --> E3
-    E3 -.->|"SKPPN + dokumen asli dikembalikan"| PPTERIMA
-    E1 -.->|"SPPNL kepada PU & Penyerah Piutang (PMK 240 Psl 311)"| PPTERIMA
-    E2 -.->|"SPPNS + dokumen asli (PMK 240 Psl 309)"| PPTERIMA
-
-    %% =============== GAYA ===============
     classDef s1 fill:#E7F1FB,stroke:#2E6DA4,color:#1a1a1a
     classDef s2 fill:#FFF3D6,stroke:#C89A2C,color:#1a1a1a
     classDef s3 fill:#FCE4E4,stroke:#C0392B,color:#1a1a1a
     classDef s4 fill:#E5F4EA,stroke:#2E8B57,color:#1a1a1a
-    classDef ext fill:#FFFFFF,stroke:#8A8A8A,stroke-dasharray:4 3,color:#333333
     classDef gw fill:#FFF1DE,stroke:#E8720C,color:#1a1a1a
-    classDef sup fill:#EEF4F7,stroke:#3D6E8F,color:#1a1a1a
+    classDef ext fill:#FFFFFF,stroke:#8A8A8A,stroke-dasharray:4 3,color:#333333
     classDef note fill:#EFEBFA,stroke:#7C6BC0,color:#1a1a1a
     classDef endN fill:#145A32,stroke:#0E3B20,color:#FFFFFF
 
-    class P1,P2,P3,P2124,P26,P2930,P38,P95 s1
-    class P7,P8,P9,P10,P11,P12,P13,P14 s2
-    class P39,P33,P3234,P43,P46,P4749,P52,P5051,P53,P54,P5657,P58,P77,P78,PLELANG,P59,P60,P61,P62,P63,P65,P66,P68,P69,P70 s3
-    class P15,P16,P17,P20,P85,P8386,P88,P89,P90,P87,P84,P91,P92,P93,P96,P6,P94 s4
-    class GLELANG,KPG,PUG1,PUG2,PUGWAN,PUGSP gw
-    class PPSTART,PPTERIMA,PPSETUJU,PPUSUL,PUPB,PUKR,PUPOT,PUPTL,PUPAKSA,INKEJ,INLAPAS,INJAB,INKPKNL,INBLOK ext
-    class KPDIS,KPNVER,PUPNP,PUPNSEK,KW1,KW2,KW3 sup
-    class CAT1,CAT2,CAT3 note
+    class P1,P2,P3,P3B s1
+    class P4,P5,P6,P9,P10 s2
+    class P11,P12,P7,P8,P13 s3
+    class P14,P15,P16,P17,P18 s4
+    class G1,G2,G3,G4,G5,G6 gw
+    class CAT,AUX note
+    class START ext
     class E1,E2,E3,E4,E5,E6 endN
-
-    style LANE_CAT fill:#F7F5FD,stroke:#7C6BC0
-    style LANE_PP fill:#FCFCFC,stroke:#AAAAAA
-    style LANE_PU fill:#FCFCFC,stroke:#AAAAAA
-    style LANE_INST fill:#FCFCFC,stroke:#AAAAAA
-    style LANE_PUPN fill:#FFFDF0,stroke:#B8A13A
-    style LANE_KANWIL fill:#FFFDF0,stroke:#B8A13A
-    style LANE_KKPNL fill:#F2F8FC,stroke:#3D6E8F
-    style LANE_KASIPN fill:#F2F8FC,stroke:#3D6E8F
-    style LANE_KASIHI fill:#F2F8FC,stroke:#3D6E8F
-    style LANE_SUBBAG fill:#F2F8FC,stroke:#3D6E8F
-    style LANE_KASIPP fill:#F2F8FC,stroke:#3D6E8F
-    style LANE_PEL fill:#FFFFFF,stroke:#3D6E8F
-    style LANE_END fill:#F4FBF4,stroke:#145A32
 </script>
 <script>
 var scale=1, holder=document.getElementById('diagramHolder');

@@ -1,0 +1,113 @@
+flowchart TD
+    %% ================================================================
+    %% BAGAN ALUR SEDERHANA — SOP PENGURUSAN PIUTANG NEGARA OLEH PUPN
+    %% Alur kronologis T1-T4 tanpa swimlane (versi ringkas utama).
+    %% Arsip versi rinci per aktor (swimlane, 95 simpul):
+    %%   bagan_sop_piutang_negara.mmd  + tabel traceability pada halaman.
+    %% Konvensi: garis tegas = alur proses; garis putus-putus = dokumen /
+    %% interaksi pihak eksternal; {X} = keputusan; ⏸ = norma waktu dikecualikan;
+    %% hk = hari kerja. Semua isi dari dokumen sumber folder PERATURAN.
+    %% ================================================================
+
+    CAT(["KETENTUAN (tercantum pada tiap SOP): 1 hari kerja dihitung mulai jam kerja hari dimulainya proses awal s.d. hari kerja berikutnya · ⏸ norma waktu dikecualikan bila pekerjaan dilaksanakan unit kerja lain di luar organisasi / gangguan aplikasi melebihi 2 jam · Plt./Plh. berwenang sesuai PMK tentang Plt./Plh."])
+
+    START(["MULAI — Penyerah Piutang menyampaikan Surat Penyerahan Pengurusan PN beserta dokumen pendukung"])
+
+    AUX(["SOP pendukung lainnya — 4, 5, 25, 27, 31, 36-37, 40-42, 72-76, 79-82, 97-99 — tidak digambar agar bagan ringkas; SLA & kutipannya tercantum pada tabel traceability halaman ini"])
+
+    START -.->|"berkas penyerahan (SOP 1 In)"| P1
+    P1["<b>T1 · 1-KPKNL-PN</b> — Kepala KPKNL mendisposisikan → Kasi PN → Penelitian berkas → Resume Hasil Penelitian Kasus<br/><i>SLA:</i> 7 hk"]
+    P1 --> G1
+    G1{"Hasil Penelitian Kasus?<br/>syarat penyerahan: PP 28/2022 Psl 8"}
+    G1 -->|"memenuhi → terbit <b>SP3N</b> — pengurusan beralih ke PUPN (Psl 13)"| P2
+    G1 -->|"data belum lengkap / perlu penjelasan"| P3
+    G1 -->|"tidak memenuhi syarat → SPnPPN"| E5
+    P3["<b>T1 · 3-KPKNL-PN</b> — Surat Permintaan Kelengkapan Data / Ekspose<br/><i>SLA:</i> 9 hk"]
+    P3 -.->|"kelengkapan / penjelasan dari Penyerah Piutang"| P1
+    P2["<b>T1 · 2-KPKNL-PN</b> — Surat Permintaan Dokumen Asli Barjam & Surat Pernyataan Kesanggupan Roya<br/><i>SLA:</i> 4 hk"]
+    P2 --> P3B
+    P3B["<b>T1 · 21-24, 26, 28-30, 95, 38</b> — Administrasi & penelitian barang jaminan<br/>penerimaan / surat penitipan / penitipan / pemeliharaan (21-23: 1/5/2 hk; 24: s.d. lunas / selesai / barjam terjual) · penelitian dokumen (26: ≤6 hk) · penelitian lapangan (28: ≤3 hk; bantuan KPKNL lain 29/30: ≤5/≤6 hk ⏸) · keaslian dokumen (95: 6 hk) · persetujuan pendayagunaan (38: ≤6 hk)"]
+
+    P3B --> P4
+    P4["<b>T2 · 7/8/9-KPKNL-PN</b> — Pemanggilan PU/JU<br/>Surat Panggilan Pertama (7: 5 hk) → Panggilan Terakhir (8: 5 hk) → Pengumuman (9: 10 hk — ND Laporan Ketersediaan Anggaran + BA Penempelan Pengumuman)"]
+    P4 --> G2
+    G2{"PU/JU memenuhi panggilan,<br/>mengakui utang & sepakat cara penyelesaian?"}
+    G2 -->|"hadir & mengakui"| P5
+    G2 -->|"tidak hadir (setelah pengumuman) / tidak mengakui / menolak menandatangani tanpa alasan sah"| P9
+    P5["<b>T2 · 10/11-KPKNL-PN</b> — Tanya Jawab (10: 3 hk) → Pernyataan Bersama (11: 5 hk)<br/>PB atau PB Tidak Sanggup (PMK 240 Psl 57-58) · BAPN dikenakan sejak SP3N (Psl 289)"]
+    P5 --> G3
+    G3{"PB dilaksanakan?"}
+    G3 -->|"ya — pembayaran / angsuran hingga lunas"| E1
+    G3 -.->|"PU mengajukan keringanan utang (PP 28/2022 Psl 67)"| P15
+    G3 -->|"wanprestasi"| P6
+    P6["<b>T2 · 12-KPKNL-PN</b> — Surat Peringatan PB<br/><i>SLA:</i> 6 hk (PP 28/2022 Psl 18-19 b)"]
+    P9["<b>T2 · 14-KPKNL-PN</b> — Penetapan Jumlah Piutang Negara (PJPN)<br/><i>SLA:</i> 5 hk · ⚠ dasar PMK 240 Psl 62 telah dihapus PMK 23/2026 — PP 28/2022 Psl 19 c-d: penagihan sekaligus dengan SP"]
+    P9 -.->|"koreksi besaran hasil verifikasi"| P10
+    P10["<b>T2 · 13-KPKNL-PN</b> — SKPBN: Surat Pemberitahuan Koreksi/Perubahan Besaran PN<br/><i>SLA:</i> 5 hk (kewenangan tetap: PP 4/2026 Psl 7 e)"]
+
+    P6 --> P11
+    P9 --> P11
+    P10 --> P11
+    P11["<b>T3 · 52-KPKNL-PN</b> — Surat Paksa (SP) — kekuatan pelaksanaan seperti putusan pengadilan<br/>perintah lunasi <b>1×24 jam</b> sejak pemberitahuan (PP 28/2022 Psl 20) · pemberitahuan oleh Juru Sita + 2 saksi (50/51: 10/8 hk ⏸)<br/><i>SLA:</i> 8 hk"]
+    P11 --> G4
+    G4{"Lunas dalam 1×24 jam?"}
+    G4 -->|"ya"| E1
+    G4 -->|"tidak"| P12
+    P12["<b>T3 · 32/34, 53-58</b> — Pemblokiran & Penyitaan (PP 28/2022 Psl 24-26)<br/>pemblokiran (32: ≤5 hk) · pencabutan pemblokiran (34: ≤6 hk) · SPP (53: 3 hk) · pelaksanaan penyitaan Juru Sita (54: 11 hk; bantuan 55: 5 hk ⏸) · sita persamaan (56/57: 5 hk) · pengangkatan penyitaan SPPS (58: 7 hk)"]
+    P12 -.->|"alternatif Penjamin Utang: penebusan"| P16
+    P12 --> P7
+    P7["<b>T3 · 39, 33, 43-49</b> — Pemeriksaan & Pencegahan<br/>pemeriksaan diri & kemampuan PU/JU (39: 11 hk) · izin keterangan simpanan nasabah (33: ≤6 hk) · usul pencegahan ke luar wilayah RI (43: 5 hk) · perpanjangan pencegahan (44: 4 hk) · izin bepergian (46: 9 hk; pertimbangan 45: 7 hk) · tidak diperpanjang / laporan / pencabutan (47/48/49: 3/12/3 hk)"]
+    P7 --> G6
+    G6{"Syarat Paksa Badan terpenuhi?<br/>PMK 240 Psl 191: PU tidak memenuhi SP · sisa hutang ≥ Rp1 miliar · Barjam tidak ada / tidak menutup · PU mampu namun tidak beritikad baik · objek belum berumur 80 tahun"}
+    G6 -->|"ya"| P8
+    G6 -->|"tidak"| P13
+    P8["<b>T3 · 59-63, 65, 66-70</b> — Paksa Badan (jangka ≤6 bulan + perpanjangan 1×6 bulan, PP 28/2022 Psl 58)<br/>persetujuan Ketua PUPN Pusat (59: 7 hk) → izin Kepala Kejaksaan Tinggi (60: 7 hk) → SPPB oleh Ketua PUPN Cabang / Kepala Kanwil (61: 8 hk) · bantuan penyediaan tempat Lapas/Rutan (SOP tanpa nomor, urutan ke-65: 6 hk ⏸) → pemberitahuan (63: 11 hk) → pelaksanaan (68: 6 hk) · izin keluar (69: 2 hk — ≤3 hari sejak permohonan, PMK 240 Psl 214) · perpanjangan (62: 5 hk) · pembebasan objek (70: 5 hk)"]
+    P8 -->|"penyelesaian lanjutan atas barang sitaan"| P13
+    P13["<b>T3 · 77/81/78-KPKNL-PN</b> — Penjualan lelang barang sitaan (SOP 71-82)<br/>SPPBS (77: 3 hk) → Nilai Limit oleh Ketua PUPN Cabang (81: 3 hk) → penyerahan kelengkapan dokumen lelang (78: 3 hk) → lelang"]
+    P13 -.->|"sebelum pengumuman lelang: permohonan PU / Penjamin / pembeli"| P17
+    P13 --> G5
+    G5{"Hasil lelang menutup utang?"}
+    G5 -->|"ya"| E1
+    G5 -->|"sisa utang — PU tidak mampu / tidak diketahui; Barjam tidak ada / terjual / ditebus (PP 28/2022 Psl 69)"| P14
+    P14["<b>T4 · 92/91, 96</b> — PSBDT & potensi piutang<br/>ND Permintaan Verifikasi PSBDT (92: 3 hk) → Surat PSBDT (91: 4 hk) · penggalian potensi PN (96: 5 hk)"]
+    P14 --> E4
+
+    P15["<b>T4 · 15/16/17, 20</b> — Keringanan utang (keputusan persetujuan/penolakan oleh Menteri — PP 28/2022 Psl 67)<br/>penelitian kelengkapan (15: 3 hk) → permintaan kelengkapan/penjelasan (16: 5 hk) → persetujuan/penolakan (17: 9 hk) → Surat Peringatan (20: pembayaran 7 hk bulanan / 30 hk triwulanan sejak surat peringatan)"]
+    P15 -->|"pelunasan sesuai hasil keringanan"| E1
+    P16["<b>T4 · 88, 89/90, 87</b> — Penebusan oleh Penjamin Utang<br/>Surat Permintaan Persetujuan Penebusan kepada Penyerah Piutang (88: 10 hk) → di bawah nilai pengikatan (89: 10 hk) / sesuai nilai pengikatan (90: 7 hk) · wanprestasi → peringatan (87: 5 hk)"]
+    P16 -->|"penebusan dibayar → lunas"| E1
+    P16 -.->|"wanprestasi → barang jaminan dilelang"| P13
+    P17["<b>T4 · 85, 83/86, 84</b> — Penjualan Tanpa Melalui Lelang<br/>Surat Permintaan Persetujuan (85: 10 hk) → Persetujuan (83/86: 12 hk — nilai paling sedikit sama dengan Nilai Pasar, Psl 261) · pembayaran tunai paling lama 2 bulan sejak persetujuan (Psl 266) · wanprestasi → peringatan (84: 5 hk) → persetujuan batal"]
+    P17 -->|"tunai ≤2 bulan terpenuhi → lunas"| E1
+    P17 -.->|"batal → kembali dilelang"| P13
+
+    START -.->|"kapan pun: usul penarikan — restrukturisasi (PP 28/2022 Psl 72) / pemberitahuan kekeliruan, perkara pidana, atau putusan pengadilan (SOP 6 In)"| P18
+    P18["<b>T4 · 93, 6, 94</b> — Penyelesaian administratif<br/>ND Hasil Penelitian & Persetujuan/Penolakan Usul Penarikan (93: 3 hk — BAPN penarikan ≤14 hari, Psl 307) · Pengembalian Pengurusan PN (6: 10 hk) · PTDM piutang instansi pemerintah pusat/daerah (94: 12 hk)"]
+    P18 -->|"usul disetujui + BAPN penarikan diselesaikan"| E2
+    P18 -->|"kekeliruan / perkara pidana / putusan pengadilan"| E3
+    P18 -.->|"piutang instansi pemerintah telah dihapuskan (SK penghapusan)"| E6
+
+    E1(["🏁 SPPNL — Surat Pernyataan Piutang Negara Lunas (PMK 240 Psl 310; PP 28/2022 Psl 71) — disampaikan kepada PU & Penyerah Piutang (Psl 311)"])
+    E2(["🏁 SPPNS — Surat Pernyataan Pengurusan Piutang Negara Selesai (PMK 240 Psl 308; PP 28/2022 Psl 73)"])
+    E3(["🏁 SKPPN — Surat Pengembalian Pengurusan Piutang Negara (SOP 6; PP 4/2026 Psl 7 c)"])
+    E4(["🏁 PSBDT — Piutang Negara Sementara Belum Dapat Ditagih (SOP 91; PP 28/2022 Psl 69) — diberitahukan kepada Penyerah Piutang (Psl 286) & dasar tindakan keperdataan s.d. lunas/selesai (Psl 49-52)"])
+    E5(["🏁 SPnPPN — Surat Penolakan Pengurusan Piutang Negara (SOP 1; PP 4/2026 Psl 7 b)"])
+    E6(["🏁 PTDM — Surat Pernyataan PN Telah Dihapuskan Mutlak (SOP 94; PP 4/2026 Psl 7 v)"])
+
+    classDef s1 fill:#E7F1FB,stroke:#2E6DA4,color:#1a1a1a
+    classDef s2 fill:#FFF3D6,stroke:#C89A2C,color:#1a1a1a
+    classDef s3 fill:#FCE4E4,stroke:#C0392B,color:#1a1a1a
+    classDef s4 fill:#E5F4EA,stroke:#2E8B57,color:#1a1a1a
+    classDef gw fill:#FFF1DE,stroke:#E8720C,color:#1a1a1a
+    classDef ext fill:#FFFFFF,stroke:#8A8A8A,stroke-dasharray:4 3,color:#333333
+    classDef note fill:#EFEBFA,stroke:#7C6BC0,color:#1a1a1a
+    classDef endN fill:#145A32,stroke:#0E3B20,color:#FFFFFF
+
+    class P1,P2,P3,P3B s1
+    class P4,P5,P6,P9,P10 s2
+    class P11,P12,P7,P8,P13 s3
+    class P14,P15,P16,P17,P18 s4
+    class G1,G2,G3,G4,G5,G6 gw
+    class CAT,AUX note
+    class START ext
+    class E1,E2,E3,E4,E5,E6 endN

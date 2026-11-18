@@ -8,12 +8,9 @@ sumber** pada folder `PERATURAN` (KPKNL Kupang), tanpa sumber eksternal.
 
 ## Isi halaman
 
-1. **Bagan alur Mermaid** — satu diagram end-to-end dengan **swimlane per aktor**:
-   - Eksternal: Penyerah Piutang · Penanggung/Penjamin Utang · Instansi terkait (Kejaksaan Tinggi, Lapas/Rutan, K/L-Pemda/instansi pengangkatan jabatan publik, KPKNL lain, instansi pendaftaran hak)
-   - PUPN & Kanwil: Ketua/Anggota PUPN Pusat-Cabang · Sekretariat PUPN · Kepala Kanwil DJKN
-   - Internal KPKNL: Kepala KPKNL · Kasi PN · Kasi HI · Kepala Subbagian Umum · Kasi Pelayanan Penilaian/Lelang · Pelaksana Seksi PN (Perumus, Pemroses Data, Penyaji Data, Analis, Pemeriksa, Juru Sita, Petugas Khusus, Penata Usaha)
-   - Setiap simpul mencantumkan **No. SOP** (contoh: `1-KPKNL-PN`), **dokumen input/output**, dan **jangka waktu penyelesaian** (verbatim dari sumber).
+1. **Bagan alur Mermaid — alur kronologis ringkas** (35 simpul): satu alur utama dengan 6 titik keputusan — hasil penelitian kasus (SP3N/kelengkapan/penolakan), PU hadir & sepakat, wanprestasi PB, lunasi 1×24 jam, syarat Paksa Badan, dan hasil lelang. Simpul memuat **No. SOP + SLA**; dokumen kunci mengalir sebagai label garis; aktor penting tercantum inline (Kepala KPKNL, Ketua PUPN Pusat/Cabang, Menteri, Juru Sita, Kepala Kejaksaan Tinggi, Lapas/Rutan).
    - Empat tahap: T1 Penerimaan & Penanganan Barjam · T2 Pemanggilan & Produk Hukum Awal · T3 Pemeriksaan, Paksa & Sita · T4 Keringanan, Penebusan & Penyelesaian Akhir.
+   - **Arsip versi rinci per aktor** (swimlane, 95 simpul): [`bagan_sop_piutang_negara.mmd`](bagan_sop_piutang_negara.mmd) — sumber bagan utama ringkas: [`bagan_alur.mmd`](bagan_alur.mmd).
 2. **Ketentuan khusus** — definisi 1 hari kerja, simbol penundaan (delay)/proses lain, kewenangan Plt./Plh. (Catatan Lainnya tiap SOP).
 3. **Kondisi terkini 2026** — ringkasan PMK 23/2026, PP 4/2026, KMK 144/2026.
 4. **Temuan validasi** — koreksi atas klaim prompt, divalidasi independen oleh 2 subagent terhadap PDF asli.
